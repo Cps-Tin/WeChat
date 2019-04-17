@@ -74,19 +74,16 @@ public class TestController {
         System.out.println(inMsg.getMsgType());
         /*被动回复用户信息*/
         if("text".equals(inMsg.getMsgType())){
-            if(inMsg.getContent().contains("名字")){
-                outMsg.setMsgType("_Cps");
-                outMsg.setContent(inMsg.getContent());
-            }else if(inMsg.getContent().contains("手机号")){
-                outMsg.setMsgType("18848848551");
-                outMsg.setContent(inMsg.getContent());
+            if(inMsg.getContent().contains("名字")||inMsg.getContent().contains("备注")){
+                outMsg.setContent("_Cps");
+            }else if(inMsg.getContent().contains("QQ")||inMsg.getContent().contains("微信")||inMsg.getContent().contains("手机号")){
+                outMsg.setContent("18848848551");
             }else if(inMsg.getContent().equals("【收到不支持的消息类型，暂无法显示】")){
-                outMsg.setMsgType("text");
                 outMsg.setContent("你瓜皮哦 OvO 正常点好的嘛");
             }else{
-                outMsg.setMsgType("text");
                 outMsg.setContent(inMsg.getContent());
             }
+            outMsg.setMsgType("text");//设置消息类型
         }else if("image".equals(inMsg.getMsgType())){
             outMsg.setMsgType("image");
             outMsg.setMediaId(new String[]{inMsg.getMediaId()});
@@ -103,7 +100,7 @@ public class TestController {
             outMsg.setMsgType("text");
             outMsg.setContent("你瓜皮哦 OvO 正常点好的嘛");
         }
-        System.out.println(outMsg.toString());
+        System.out.println(outMsg.getContent());
 
         /*
         不用@XmlRootElement @XmlAccessorType 这些注解
